@@ -78,7 +78,7 @@ def setup_page():
     '''Setup Streamlit Web Page Configuration and General Stuffs.'''
     # Page Configuration
     st.set_page_config(
-        page_title="Page Title",
+        page_title=APP_NAME,
         page_icon=None,
         layout="centered", # "centered" or "wide"
         menu_items={
@@ -94,7 +94,7 @@ def setup_page():
     st.markdown("<style>.stDeployButton {display:none;}</style>",
                 unsafe_allow_html=True)
     # Application Title & Header
-    st.title("Streamlit Demo")
+    st.title(APP_NAME)
     st.header("A variety of Streamlit elements")
     st.markdown("---")
     # Footer Panel
