@@ -1,0 +1,13 @@
+[Unit]
+Description=StreamLit Demo App Service
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/streamlit_demo
+ExecStart=streamlit run streamlit_demo.py
+Restart=always
+Environment=PYTHONUNBUFFERED=1
+Environment=STREAMLIT_SERVER_HEADLESS=true
+
+[Install]
+WantedBy=multi-user.target

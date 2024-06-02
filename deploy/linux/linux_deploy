@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+###############################################################################
+
+# Constants
+
+APP_NAME="streamlit_demo"
+PWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+DIR_PROJECT="${PWD}/../.."
+DIR_SRC="${DIR_PROJECT}/src"
+DIR_INSTALL="/opt/${APP_NAME}"
+BIN_PATH="/usr/local/bin"
+
+###############################################################################
+
+# Auxiliary Functions
+
+# Install App Files
+install_app()
+{
+    rm -rf $DIR_INSTALL
+    mkdir -p $DIR_INSTALL
+    cp -a $PWD/../.streamlit $DIR_INSTALL
+    cp -a $DIR_SRC/* $DIR_INSTALL
+    cp -a $DIR_PROJECT/LICENSE $DIR_INSTALL
+    cp -a $DIR_PROJECT/README.md $DIR_INSTALL
+}
+
+# Setup Systemd Service
+setup_service()
+{
+    cp -a $PWD/streamlit_demo.service /etc/systemd/system/
+    systemctl daemon-reload
+    systemctl enable streamlit_app.service
+    systemctl start streamlit_app.service
+    systemctl status streamlit_app.service
+}
+
+###############################################################################
+
+# Main Functionality
+
+# Check for root privileges
+if [ "$(id -u)" != "0" ]; then
+    echo "This script must be executed with administration privileges."
+    echo ""
+    exit 1
+fi
+
+# Deployment
+echo ""
+echo "Installing Streamlit App: ${APP_NAME}..."
+echo ""
+install_app
+setup_service
+echo ""
+exit 0
+
+###############################################################################
