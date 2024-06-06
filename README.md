@@ -1,5 +1,7 @@
 # test_streamlit
 
+![imagen](https://github.com/J-Rios/test_streamlit/assets/12136967/ab1ae064-30e7-4ee5-b5f1-e334a82fe468)
+
 A basic demo project to test Streamlit functionalities.
 
 Streamlit is a Python library for simplify creation of web apps.
