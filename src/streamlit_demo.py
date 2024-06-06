@@ -128,7 +128,7 @@ def setup_page():
         st.session_state.menu_option = 2
     if st.sidebar.button("Selectors"):
         st.session_state.menu_option = 3
-    if st.sidebar.button("Option 4"):
+    if st.sidebar.button("Slider"):
         st.session_state.menu_option = 4
 
 def show_content():
@@ -207,9 +207,9 @@ def show_content_other():
     st.write(f"Slider value: {slider_val}")
 
 
-###########################################################################
+###############################################################################
 # Main Function
-###########################################################################
+###############################################################################
 
 def main(argc, argv) -> int:
     '''Application Run.'''

@@ -16,24 +16,29 @@ BIN_PATH="/usr/local/bin"
 # Auxiliary Functions
 
 # Install App Files
-install_app()
+install_files()
 {
+    echo "Installing files in $DIR_INSTALL ..."
     rm -rf $DIR_INSTALL
     mkdir -p $DIR_INSTALL
     cp -a $PWD/../.streamlit $DIR_INSTALL
     cp -a $DIR_SRC/* $DIR_INSTALL
     cp -a $DIR_PROJECT/LICENSE $DIR_INSTALL
     cp -a $DIR_PROJECT/README.md $DIR_INSTALL
+    echo "Files installation done"
 }
 
 # Setup Systemd Service
 setup_service()
 {
-    cp -a $PWD/streamlit_demo.service /etc/systemd/system/
+    SERVICE_NAME = "$APP_NAME.service"
+    echo "Setting $SERVICE_NAME Systemd Service..."
+    cp -a $PWD/$SERVICE_NAME /etc/systemd/system/
     systemctl daemon-reload
-    systemctl enable streamlit_app.service
-    systemctl start streamlit_app.service
-    systemctl status streamlit_app.service
+    systemctl enable $SERVICE_NAME
+    systemctl start $SERVICE_NAME
+    systemctl status $SERVICE_NAME
+    echo "Service setup and started"
 }
 
 ###############################################################################
@@ -51,7 +56,7 @@ fi
 echo ""
 echo "Installing Streamlit App: ${APP_NAME}..."
 echo ""
-install_app
+install_files
 setup_service
 echo ""
 exit 0
