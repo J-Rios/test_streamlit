@@ -132,7 +132,6 @@ class GraphicUserInterface():
         st.title(APP_NAME)
         self.setup_sidebar()
         self.setup_footer(f"{APP_NAME} - {VERSION_STRING}")
-        self.setup_header("A variety of Streamlit elements")
 
     def setup_header(self, text=""):
         '''Setup Page Header.'''
@@ -179,13 +178,13 @@ class GraphicUserInterface():
                 st.session_state.menu_option = btn.uid
                 #btn.callback()
 
-    def show_content(self):
+    def show_page_content(self):
         '''Show Content based on Sidebar Menu Option selected.'''
-        option = st.session_state.menu_option
-        self.cb_buttons[option].callback()
+        self.cb_buttons[st.session_state.menu_option].callback()
 
     def show_content_text(self):
         '''Show Page Content: Text.'''
+        self.setup_header("A variety of Streamlit Elements")
         # Text Label: Standard
         st.subheader("Standard Text")
         st.write("This demo shows a some Streamlit elements in action.")
@@ -204,6 +203,7 @@ class GraphicUserInterface():
 
     def show_content_io(self):
         '''Show Page Content: Inputs / Outputs.'''
+        self.setup_header("Inputs / Outputs Elements")
         # Text Input
         st.subheader("Text Input")
         name = st.text_input("Enter your name:")
@@ -226,6 +226,7 @@ class GraphicUserInterface():
 
     def show_content_selector(self):
         '''Show Page Content: Selector.'''
+        self.setup_header("Selectors Elements")
         # SelectBox
         st.subheader("SelectBox")
         option1 = st.selectbox("Select Option",
@@ -247,6 +248,7 @@ class GraphicUserInterface():
 
     def show_content_other(self):
         '''Show Page Content: Others.'''
+        self.setup_header("Other Elements")
         # Slider
         st.subheader("Slider")
         slider_val = st.slider("Select a value", 0, 100)
@@ -267,7 +269,7 @@ def main(argc, argv) -> int:
     logger.debug("")
     gui = GraphicUserInterface()
     gui.setup_page(APP_NAME, "centered", ABOUT_TEXT)
-    gui.show_content()
+    gui.show_page_content()
     return 0
 
 
