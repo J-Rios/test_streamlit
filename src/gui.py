@@ -3,13 +3,13 @@
 
 '''
 Script:
-    streamlit_demo.py
+    gui.py
 Description:
-    Basic Streamlit Demo App to test and show some of it features.
+    Streamlit Graphical USer Interface.
 Author:
     Jose Miguel Rios Rubio
 Date:
-    2024-06-01
+    2024-06-10
 Version:
     1.0.0
 '''
@@ -18,12 +18,7 @@ Version:
 # Standard Libraries
 ###############################################################################
 
-# Logging Library
-import logging
-
-# System Library
-from sys import argv as sys_argv
-from sys import exit as sys_exit
+# None
 
 
 ###############################################################################
@@ -39,38 +34,6 @@ import streamlit as st
 ###############################################################################
 
 # None
-
-
-###############################################################################
-# Logger Setup
-###############################################################################
-
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
-)
-
-logger = logging.getLogger(__name__)
-
-
-###############################################################################
-# Constants & Configurations
-###############################################################################
-
-# Application Name
-APP_NAME = "Streamlit Demo"
-
-# Software Version
-VERSION = "1.0.0"
-
-# Software Version Date
-DATE = "2024-06-01"
-
-# Version String
-VERSION_STRING = f"v{VERSION} ({DATE})"
-
-# Application About Text
-ABOUT_TEXT = "This is the Application about text."
 
 
 ###############################################################################
@@ -113,7 +76,7 @@ class GraphicUserInterface():
         self.btn_id = self.btn_id + 1
         self.cb_buttons[btn.uid] = btn
 
-    def setup_page(self, title, layout, about, icon=None):
+    def setup_page(self, title, layout, about, footbar_text, icon=None):
         '''
         Setup Streamlit Web Page Configuration and General Stuffs.
         Layout: "centered" or "wide".
@@ -129,9 +92,9 @@ class GraphicUserInterface():
         st.markdown("<style>.stDeployButton {display:none;}</style>",
                     unsafe_allow_html=True)
         # Application Title, SideBar, Footer & Header
-        st.title(APP_NAME)
+        st.title(title)
         self.setup_sidebar()
-        self.setup_footer(f"{APP_NAME} - {VERSION_STRING}")
+        self.setup_footer(footbar_text)
 
     def setup_header(self, text=""):
         '''Setup Page Header.'''
@@ -253,32 +216,3 @@ class GraphicUserInterface():
         st.subheader("Slider")
         slider_val = st.slider("Select a value", 0, 100)
         st.write(f"Slider value: {slider_val}")
-
-
-###############################################################################
-# Main Function
-###############################################################################
-
-def main(argc, argv) -> int:
-    '''Application Run.'''
-    logger.debug("Application Start")
-    logger.debug("APP Number of Arguments: %d", argc)
-    logger.debug("APP Arguments:")
-    for arg in argv:
-        logger.debug("  %s", str(arg))
-    logger.debug("")
-    gui = GraphicUserInterface()
-    gui.setup_page(APP_NAME, "centered", ABOUT_TEXT)
-    gui.show_page_content()
-    return 0
-
-
-###############################################################################
-# Runnable Main Script Detection
-###############################################################################
-
-if __name__ == "__main__":
-    logger.debug("Application Launch")
-    RETURN_CODE = main(len(sys_argv)-1, sys_argv[1:])
-    logger.debug("Application Exit (%d)", RETURN_CODE)
-    sys_exit(RETURN_CODE)

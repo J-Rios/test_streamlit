@@ -5,4 +5,4 @@
 import subprocess as sp
 import shlex
 
-sp.call(shlex.split("streamlit run streamlit_demo.py"), shell=True)
+sp.call(shlex.split("streamlit run app.py"), shell=True)
