@@ -30,8 +30,8 @@ from sys import exit as sys_exit
 # Local Libraries
 ###############################################################################
 
-# Graphical USer Interface Library
-from gui import GraphicUserInterface
+# User Interface Library
+from ui import UserInterface
 
 
 ###############################################################################
@@ -57,7 +57,7 @@ APP_NAME = "Streamlit Demo"
 VERSION = "1.0.0"
 
 # Software Version Date
-DATE = "2024-06-01"
+DATE = "2024-06-11"
 
 # Version String
 VERSION_STRING = f"v{VERSION} ({DATE})"
@@ -73,24 +73,29 @@ ABOUT_TEXT = "This is the Application about text."
 # Left Sidebar Panel Button Functions
 ###############################################################################
 
-def sidebar_btn_device_info_press():
-    '''GUI Left Sidebar Panel "Info" Button Press Handler.'''
-    print("Showing Device Info Frame")
+def sidebar_btn_0_press():
+    '''UI Left Sidebar Panel Button_0 Press Handler.'''
+    print("Pressed Sidebar Button 0")
 
 
-def sidebar_btn_flash_fw_press():
-    '''GUI Left Sidebar Panel "Flash" Button Press Handler.'''
-    print("Showing FW Flash Frame")
+def sidebar_btn_1_press():
+    '''UI Left Sidebar Panel Button_1 Press Handler.'''
+    print("Pressed Sidebar Button 1")
 
 
-def sidebar_btn_debug_press():
-    '''GUI Left Sidebar Panel "Debug" Button Press Handler.'''
-    print("Showing Debug Frame")
+def sidebar_btn_2_press():
+    '''UI Left Sidebar Panel Button_2 Press Handler.'''
+    print("Pressed Sidebar Button 2")
 
 
-def sidebar_btn_about_press():
-    '''GUI Left Sidebar Panel "About" Button Press Handler.'''
-    print("Showing About Frame")
+def sidebar_btn_3_press():
+    '''UI Left Sidebar Panel Button_3 Press Handler.'''
+    print("Pressed Sidebar Button 3")
+
+
+def btn_clickme_press():
+    '''UI Click-Me Button Pressed.'''
+    print("Button Click-Me Pressed")
 
 
 ###############################################################################
@@ -99,15 +104,22 @@ def sidebar_btn_about_press():
 
 def main(argc, argv) -> int:
     '''Application Run.'''
+    # Handle Application arguments
     logger.debug("Application Start")
     logger.debug("APP Number of Arguments: %d", argc)
     logger.debug("APP Arguments:")
     for arg in argv:
         logger.debug("  %s", str(arg))
     logger.debug("")
-    gui = GraphicUserInterface()
-    gui.setup_page(APP_NAME, "centered", ABOUT_TEXT, FOOTBAR_TEXT)
-    gui.show_page_content()
+    # Create UI and bind function callbacks
+    ui = UserInterface()
+    ui.callbacks.sidebar_btn_0.app = sidebar_btn_0_press
+    ui.callbacks.sidebar_btn_1.app = sidebar_btn_1_press
+    ui.callbacks.sidebar_btn_2.app = sidebar_btn_2_press
+    ui.callbacks.sidebar_btn_3.app = sidebar_btn_3_press
+    ui.callbacks.btn_clickme.app = btn_clickme_press
+    # Generate and show UI
+    ui.setup_page(APP_NAME, "centered", ABOUT_TEXT, FOOTBAR_TEXT)
     return 0
 
 
