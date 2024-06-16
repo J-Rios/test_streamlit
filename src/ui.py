@@ -18,7 +18,14 @@ Version:
 # Standard Libraries
 ###############################################################################
 
-# None
+# Logging Library
+import logging
+
+# Operating System Library
+from os import path as os_path
+
+# Error Traceback Library
+from traceback import format_exc
 
 
 ###############################################################################
@@ -34,6 +41,24 @@ import streamlit as st
 ###############################################################################
 
 # None
+
+
+###############################################################################
+# Logger Setup
+###############################################################################
+
+logger = logging.getLogger(__name__)
+
+
+###############################################################################
+# Constants
+###############################################################################
+
+# Actual constants.py full path directory name
+PWD = os_path.dirname(os_path.realpath(__file__))
+
+# Path to external resource file that has some example text
+FILE_RES_EXAMPLE = f"{PWD}/../res/example.md"
 
 
 ###############################################################################
@@ -122,6 +147,8 @@ class UserInterface():
         # Initialize session variables
         self.session_set("menu_option", 0)
         self.session_set("menu_option_previous", 0)
+        # Load resources from external files
+        self.example_text = self.file_read(FILE_RES_EXAMPLE)
 
     def session_set(self, key, value):
         '''
@@ -144,6 +171,17 @@ class UserInterface():
         if key in st.session_state:
             value = st.session_state[key]
         return value
+
+    def file_read(self, file_path):
+        '''Read full content of a text file.'''
+        read_text = ""
+        try:
+            with open(file_path, "r", encoding="utf-8") as file_reader:
+                read_text = file_reader.read()
+        except Exception:
+            logger.error(format_exc())
+            logger.error("Fail to read binary file %s", file_path)
+        return read_text
 
     def hide_deploy_button(self):
         '''
@@ -219,6 +257,10 @@ class UserInterface():
         # Text Label: LaTeX
         st.subheader("LaTeX")
         st.latex(r'''a + ar + ar^2 + ar^3 + \cdots + ar^n''')
+        st.markdown("---")
+        # Resource file text
+        st.markdown(self.example_text, unsafe_allow_html=True)
+        st.markdown("---")
 
     def show_content_io(self):
         '''Show Page Content: Inputs / Outputs.'''

@@ -70,6 +70,14 @@ ABOUT_TEXT = "This is the Application about text."
 
 
 ###############################################################################
+# Global Elements
+###############################################################################
+
+# User Interface
+ui = UserInterface()
+
+
+###############################################################################
 # Left Sidebar Panel Button Functions
 ###############################################################################
 
@@ -112,7 +120,6 @@ def main(argc, argv) -> int:
         logger.debug("  %s", str(arg))
     logger.debug("")
     # Create UI and bind function callbacks
-    ui = UserInterface()
     ui.callbacks.sidebar_btn_0.app = sidebar_btn_0_press
     ui.callbacks.sidebar_btn_1.app = sidebar_btn_1_press
     ui.callbacks.sidebar_btn_2.app = sidebar_btn_2_press

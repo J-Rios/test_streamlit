@@ -8,8 +8,8 @@ APP_NAME="streamlit_demo"
 PWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 DIR_PROJECT="${PWD}/../.."
 DIR_SRC="${DIR_PROJECT}/src"
+DIR_RES="${DIR_PROJECT}/res"
 DIR_INSTALL="/opt/${APP_NAME}"
-BIN_PATH="/usr/local/bin"
 
 ###############################################################################
 
@@ -21,19 +21,20 @@ install_files()
     echo "Installing files in $DIR_INSTALL ..."
     rm -rf $DIR_INSTALL
     mkdir -p $DIR_INSTALL
-    cp -a $PWD/../.streamlit $DIR_INSTALL
-    cp -a $DIR_SRC/* $DIR_INSTALL
-    cp -a $DIR_PROJECT/LICENSE $DIR_INSTALL
-    cp -a $DIR_PROJECT/README.md $DIR_INSTALL
+    cp -a "${PWD}/../.streamlit" $DIR_INSTALL
+    cp -a "${DIR_RES}/*" $DIR_INSTALL
+    cp -a "${DIR_SRC}/*" $DIR_INSTALL
+    cp -a "${DIR_PROJECT}/LICENSE" $DIR_INSTALL
+    cp -a "${DIR_PROJECT}/README.md" $DIR_INSTALL
     echo "Files installation done"
 }
 
 # Setup Systemd Service
 setup_service()
 {
-    SERVICE_NAME = "$APP_NAME.service"
+    SERVICE_NAME="$APP_NAME.service"
     echo "Setting $SERVICE_NAME Systemd Service..."
-    cp -a $PWD/$SERVICE_NAME /etc/systemd/system/
+    cp -a "${PWD}/$SERVICE_NAME" /etc/systemd/system/
     systemctl daemon-reload
     systemctl enable $SERVICE_NAME
     systemctl start $SERVICE_NAME
