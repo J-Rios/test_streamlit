@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=/opt/streamlit_demo
-ExecStart=streamlit run app.py
+ExecStart=streamlit run ./src/app.py
 Restart=always
 Environment=PYTHONUNBUFFERED=1
 Environment=STREAMLIT_SERVER_HEADLESS=true

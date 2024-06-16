@@ -4,11 +4,12 @@
 
 # Constants
 
+# Application Name
 APP_NAME="streamlit_demo"
+
+# Directory Paths
 PWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 DIR_PROJECT="${PWD}/../.."
-DIR_SRC="${DIR_PROJECT}/src"
-DIR_RES="${DIR_PROJECT}/res"
 DIR_INSTALL="/opt/${APP_NAME}"
 
 ###############################################################################
@@ -22,8 +23,8 @@ install_files()
     rm -rf $DIR_INSTALL
     mkdir -p $DIR_INSTALL
     cp -a "${PWD}/../.streamlit" $DIR_INSTALL
-    cp -a "${DIR_RES}/*" $DIR_INSTALL
-    cp -a "${DIR_SRC}/*" $DIR_INSTALL
+    cp -a "${DIR_PROJECT}/res" $DIR_INSTALL
+    cp -a "${DIR_PROJECT}/src" $DIR_INSTALL
     cp -a "${DIR_PROJECT}/LICENSE" $DIR_INSTALL
     cp -a "${DIR_PROJECT}/README.md" $DIR_INSTALL
     echo "Files installation done"
