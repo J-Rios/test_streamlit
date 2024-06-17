@@ -1,6 +1,10 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 import os
+import site
+
+from PyInstaller.utils.hooks import collect_data_files
+from PyInstaller.utils.hooks import copy_metadata
 
 # Set Project Name
 APP_NAME = "streamlit_demo"
@@ -12,13 +16,26 @@ project_base_path = os.path.abspath(
 sources_path = os.path.join(project_base_path, 'src')
 resources_path = os.path.join(project_base_path, 'res')
 
+# Get Python Packages path
+python_pkg_path = ""
+python_packages = site.getsitepackages()
+for path in python_packages:
+    if "site-packages" in path:
+        python_pkg_path = path
+        break
+
+# Setup App Data to add
+datas = []
+datas.append((f"{python_pkg_path}/streamlit/runtime", "./streamlit/runtime"))
+datas += collect_data_files("streamlit")
+datas += copy_metadata("streamlit")
+datas.append((sources_path, 'src'))
+datas.append((resources_path, 'res'))
+
 a = Analysis(['run_app.py'],
     pathex=[sources_path],
     binaries=[],
-    datas=[
-        (sources_path, 'src'),
-        (resources_path, 'res')
-    ],
+    datas=datas,
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
